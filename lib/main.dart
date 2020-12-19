@@ -31,17 +31,23 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final myController = TextEditingController();
-  String inputText = "Test";
+  String inputText = "";
   int numberOfLetters = 0;
   int numberOfWords = 0;
 
-  void textListner() {}
-
-  void TextCountFunction() {
+  void textCountFunction() {
     StringCount stringCount = new StringCount(inputText);
     setState(() {
-      numberOfLetters = stringCount.LetterCounter();
-      numberOfWords = stringCount.WordCounter();
+      numberOfLetters = stringCount.characterCounter();
+      numberOfWords = stringCount.wordCounter();
+    });
+  }
+
+  void reset() {
+    setState(() {
+      numberOfLetters = 0;
+      numberOfWords = 0;
+      myController.clear();
     });
   }
 
@@ -68,14 +74,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     onChanged: (text) {
                       inputText = myController.text;
-                      TextCountFunction();
+                      textCountFunction();
                     }),
               ),
             ),
             Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       "Number of Characters :     ",
@@ -91,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text("Number of Words :     ",
                         style: TextStyle(color: Colors.white70)),
@@ -104,6 +110,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ))
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.clear),
+        onPressed: () {
+          reset();
+        },
       ),
     );
   }

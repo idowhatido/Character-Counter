@@ -1,6 +1,6 @@
 # letter_counter
 
-A new Flutter project.
+Simple FLutter Application to Count number of characters and words present inside the Text
 
 ## Getting Started
 
